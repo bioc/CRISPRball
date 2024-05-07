@@ -502,7 +502,7 @@ plot_rank <- function(res,
                       highlight.featsets.linecolor = "#000000",
                       highlight.featsets.linewidth = 1,
                       highlight.featsets.label = FALSE,
-                      h.id.suffix = "_volc") {
+                      h.id.suffix = "_rank") {
     # Check for required columns.
     if (!rank.term %in% colnames(res)) {
         fig <- .empty_plot(paste0("Column '", rank.term, "' not found in dataframe."), plotly = TRUE)
