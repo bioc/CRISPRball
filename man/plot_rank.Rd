@@ -45,7 +45,7 @@ plot_rank(
   highlight.featsets.linecolor = "#000000",
   highlight.featsets.linewidth = 1,
   highlight.featsets.label = FALSE,
-  h.id.suffix = "_volc"
+  h.id.suffix = "_rank"
 )
 }
 \arguments{
