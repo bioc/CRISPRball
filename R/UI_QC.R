@@ -237,7 +237,7 @@
                                 placement = "bottom", trigger = "hover", options = list(container = "body")
                             ),
                             div(downloadButton("dl_plot.qc.map", "Download Mapping Rates", class = "btn-dl"), style = "display:inline-block; float:right"),
-                            jqui_resizable(plotOutput("qc.map"))
+                            withSpinner(jqui_resizable(plotlyOutput("qc.map")))
                         ),
                         span(
                             popify(icon("circle-info", style = "font-size: 20px"), "Principal Componenet Analysis",

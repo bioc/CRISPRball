@@ -23,7 +23,7 @@
         "plot.sgrna1.counts", "plot.sgrna1.rank",
         "plot.sgrna2.counts", "plot.sgrna2.rank",
         "plot.depmap.essplot", "plot.depmap.expplot", "plot.depmap.cnplot",
-        "plot.depmap.lineages", "plot.depmap.sublineage"
+        "plot.depmap.lineages", "plot.depmap.sublineage", "plot.qc.map"
     )
 
     # nocov start
@@ -44,7 +44,7 @@
     # nocov end
 
     # Static plots
-    plotters.stat <- list("plot.qc.corr", "plot.qc.map")
+    plotters.stat <- list("plot.qc.corr")
 
     # nocov start
     lapply(plotters.stat, function(x) {

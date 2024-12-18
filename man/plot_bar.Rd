@@ -53,9 +53,6 @@ plot_bar(count.summ,
     fill = "#394E80", ylab = "Zero Count sgRNAs", yaxis.addition = 10
 )
 }
-\seealso{
-\code{\link[MAGeCKFlute]{BarView}}, for a static bar plot from the same count summary data.
-}
 \author{
 Jared Andrews
 }
