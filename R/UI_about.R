@@ -29,8 +29,9 @@
                     "in the Department of Developmental Neurobiology and <a href='https://github.com/jake-steele' target=_blank>Jake Steele</a> ",
                     "in the Center for Advanced Genome Engineering (CAGE) at St. Jude Children's Research Hospital.</p>",
                     "<p>CRISPRball is released under the <a href='https://github.com/j-andrews7/CRISPRball/blob/main/LICENSE' target=_blank>MIT license</a> and should ",
-                    "be used only for research purposes. The CRISPRball package is developed and available on ",
-                    "<a href='https://github.com/j-andrews7/CRISPRball' target=_blank>Github</a>.</p>"
+                    "be used only for research purposes. The CRISPRball source code is available on ",
+                    "<a href='https://github.com/j-andrews7/CRISPRball' target=_blank>Github</a>.</p>",
+                    "<br><br>The CRISPRball package is available through <a href='https://bioconductor.org/packages/CRISPRball' target=_blank>Bioconductor</a>."
                 )
             )
         )
