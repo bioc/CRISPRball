@@ -12,9 +12,10 @@
 #' @author Jared Andrews
 #'
 #' @importFrom shiny renderUI renderPlot tagList column selectInput isolate fluidRow
-#' @importFrom plotly renderPlotly ggplotly layout config plot_ly toWebGL add_segments add_annotations %>%
-#' @importFrom ggplot2 scale_x_discrete guide_axis
-#' @importFrom MAGeCKFlute MapRatesView
+#' @importFrom plotly renderPlotly ggplotly layout config plot_ly 
+#'   toWebGL add_segments add_annotations %>%
+#' @importFrom ggplot2 scale_x_discrete guide_axis scale_y_continuous 
+#'   geom_bar theme_minimal labs ggplot scale_fill_manual
 #' @importFrom shinyWidgets updatePickerInput
 #' @importFrom shinyjs js
 #' @importFrom dittoSeq dittoColors
@@ -117,11 +118,55 @@
     # nocov end
 
     # nocov start
-    output$qc.map <- renderPlot({
+    output$qc.map <- renderPlotly({
         if (!is.null(robjects$count.summary)) {
-            fig <- MapRatesView(robjects$count.summary) + scale_x_discrete(guide = guide_axis(angle = 45))
+            df <- robjects$count.summary
+
+            #TODO: Move this to function, add controls for colors.
+            df$Type <- "Mapped"
+            df <- df[, c("Label", "Mapped", "Reads", "Percentage", "Type")]
+
+            df <- rbind(
+                df,
+                data.frame(
+                    Label = df$Label,
+                    Mapped = df$Mapped,
+                    Reads = df$Reads,
+                    Percentage = 1 - df$Mapped / df$Reads,
+                    Type = rep("Unmapped", nrow(df))
+                )
+            )
+
+            fig <- ggplot(df, aes(Label, Percentage, fill = Type)) +
+                geom_bar(stat = "identity") +
+                theme_minimal() +
+                labs(title = "Mapping Rates", x = NULL, y = "Mapped Ratio") +
+                theme(
+                    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+                    axis.text.y = element_text(size = 12),
+                    legend.title = element_blank()
+                ) +
+                scale_y_continuous(expand = c(0, 0)) +
+                scale_fill_manual(values = c("#9BC7E9", "#1C6DAB"))
+
+            fig <- ggplotly(fig) %>%
+                layout(
+                    xaxis = list(tickangle = 315),
+                    legend=list(title=list(text=NULL))
+                ) %>%
+                config(
+                    toImageButtonOptions = list(format = "svg"),
+                    displaylogo = FALSE,
+                    plotGlPixelRatio = 7,
+                    edits = list(
+                        axisTitleText = TRUE,
+                        titleText = TRUE
+                    )
+                )
         } else {
-            fig <- .empty_plot("No summary provided.\nNo mapping metrics available.")
+            fig <- .empty_plot("No summary provided.\nNo mapping metrics available.",
+                plotly = TRUE
+            )
         }
         robjects$plot.qc.map <- fig
         fig

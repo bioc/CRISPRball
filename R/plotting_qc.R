@@ -16,11 +16,9 @@
 #'
 #' @author Jared Andrews
 #' @importFrom plotly ggplotly layout config %>%
-#' @importFrom MAGeCKFlute BarView
-#' @importFrom ggplot2 theme element_text
+#' @importFrom ggplot2 theme element_text ggplot aes geom_bar theme_minimal labs
 #' @export
 #'
-#' @seealso \code{\link[MAGeCKFlute]{BarView}}, for a static bar plot from the same count summary data.
 #' @examples
 #' library(CRISPRball)
 #' count.summ <- read.delim(system.file("extdata", "escneg.countsummary.txt",
@@ -42,19 +40,14 @@ plot_bar <- function(count.summary,
                      ylab = "Gini Index",
                      fill = "#E69F00",
                      yaxis.addition = 0.05) {
-    gg <- BarView(count.summary,
-        x = x,
-        y = y,
-        ylab = ylab,
-        xlab = xlab,
-        main = title,
-        fill = fill
-    )
-
-    gg + theme(
-        axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12)
-    )
+    gg <- ggplot(count.summary, aes(.data[[x]], .data[[y]])) +
+        geom_bar(stat = "identity", fill = fill) +
+        theme_minimal() +
+        labs(title = title, x = xlab, y = ylab) +
+        theme(
+            axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 12),
+            axis.text.y = element_text(size = 12)
+        )
 
     ggplotly(gg, tooltip = c("y")) %>%
         layout(
