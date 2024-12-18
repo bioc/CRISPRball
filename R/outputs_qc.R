@@ -14,7 +14,6 @@
 #' @importFrom shiny renderUI renderPlot tagList column selectInput isolate fluidRow
 #' @importFrom plotly renderPlotly ggplotly layout config plot_ly toWebGL add_segments add_annotations %>%
 #' @importFrom ggplot2 scale_x_discrete guide_axis
-#' @importFrom MAGeCKFlute MapRatesView
 #' @importFrom shinyWidgets updatePickerInput
 #' @importFrom shinyjs js
 #' @importFrom dittoSeq dittoColors
@@ -119,7 +118,11 @@
     # nocov start
     output$qc.map <- renderPlot({
         if (!is.null(robjects$count.summary)) {
-            fig <- MapRatesView(robjects$count.summary) + scale_x_discrete(guide = guide_axis(angle = 45))
+            fig <- ggplot(robjects$count.summary, aes(.data[["Label"]], .data[["MappedRatio"]])) +
+                geom_bar(stat = "identity", fill = "steelblue") +
+                theme_minimal() +
+                labs(title = "Mapping Rates", x = "Sample", y = "Mapped Ratio") +
+                theme(axis.text.x = element_text(angle = 45, hjust = 1))
         } else {
             fig <- .empty_plot("No summary provided.\nNo mapping metrics available.")
         }

@@ -46,7 +46,6 @@ Imports:
     matrixStats,
     colourpicker,
     shinyjs,
-    MAGeCKFlute,
     circlize,
     PCAtools,
     utils,
