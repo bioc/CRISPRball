@@ -137,7 +137,7 @@
                 )
             )
 
-            fig <- ggplot(df, aes(Label, Percentage, fill = Type)) +
+            fig <- ggplot(df, aes(.data[["Label"]], .data[["Percentage"]], fill = .data[["Type"]])) +
                 geom_bar(stat = "identity") +
                 theme_minimal() +
                 labs(title = "Mapping Rates", x = NULL, y = "Mapped Ratio") +
